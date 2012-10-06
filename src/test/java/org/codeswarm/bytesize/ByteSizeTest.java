@@ -1,6 +1,9 @@
 package org.codeswarm.bytesize;
 
+import org.codeswarm.bytesize.ByteSizeStrings.WordType;
 import org.testng.annotations.Test;
+
+import java.util.Locale;
 
 import static java.lang.Math.log;
 import static java.lang.Math.pow;
@@ -51,6 +54,33 @@ public class ByteSizeTest {
     assertEquals(round(
       log(bs.numberOfBytes(mebibyte)) / log(2)
     ), 80 + 77 - 20);
+  }
+
+  /**
+   * Get "terabyte" for US locale.
+   */
+  @Test
+  public void testUnitWordUS() {
+    String word = ByteSizeStrings.unitWord(TB, WordType.SINGLE, Locale.US);
+    assertEquals(word, "terabyte");
+  }
+
+  /**
+   * Get byte abbreviation for Slovak locale.
+   */
+  @Test
+  public void testByteSlovak() {
+    String word = ByteSizeStrings.unitWord(BYTE, WordType.ABBREVIATION, Locale.forLanguageTag("sk"));
+    assertEquals(word, "b");
+  }
+
+  /**
+   * "gigabytes" in Esperanto is "gigabajtoj".
+   */
+  @Test
+  public void testUnitWordEsperanto() {
+    String word = ByteSizeStrings.unitWord(GB, WordType.PLURAL, Locale.forLanguageTag("eo"));
+    assertEquals(word, "gigabajtoj");
   }
 
 }

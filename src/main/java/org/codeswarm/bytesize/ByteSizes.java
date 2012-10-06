@@ -4,8 +4,6 @@ import java.math.BigInteger;
 
 public class ByteSizes {
 
-  public static final String BUNDLE_NAME = ByteSizes.class.getPackage().getName() + ".Units";
-
   /**
    * @param n A number of bytes.
    * @return An immutable object.
@@ -56,25 +54,76 @@ public class ByteSizes {
     return new DoubleWithUnit(n, unit);
   }
 
-  public static final ExactByteSize BYTE = byteSize(1);
+  /** A single byte with no unit system. */
+  public static final ByteSizeUnit BYTE = new SingleByteUnit();
 
+  /** SI unit: kB = kilobyte = 10<sup>3</sup> bytes. */
   public static final ByteSizeUnit kB = new SIUnit(3), kilobyte = kB;
+
+  /** SI unit: MB = megabyte = 10<sup>6</sup> bytes. */
   public static final ByteSizeUnit MB = new SIUnit(6), megabyte = MB;
+
+  /** SI unit: GB = gigabyte = 10<sup>9</sup> bytes. */
   public static final ByteSizeUnit GB = new SIUnit(9), gigabyte = GB;
+
+  /** SI unit: TB = terabyte = 10<sup>12</sup> bytes. */
   public static final ByteSizeUnit TB = new SIUnit(12), terabyte = TB;
+
+  /** SI unit: PB = petabyte = 10<sup>15</sup> bytes. */
   public static final ByteSizeUnit PB = new SIUnit(15), petabyte = PB;
+
+  /** SI unit: EB = exabyte = 10<sup>18</sup> bytes. */
   public static final ByteSizeUnit EB = new SIUnit(18), exabyte = EB;
+
+  /** SI unit: ZB = zettabyte = 10<sup>21</sup> bytes. */
   public static final ByteSizeUnit ZB = new SIUnit(21), zettabyte = ZB;
+
+  /** SI unit: YB = yotta byte = 10<sup>24</sup> bytes. */
   public static final ByteSizeUnit YB = new SIUnit(24), yottabyte = YB;
 
+  /** IEC unit: KiB = kibibyte = 2<sup>10</sup> bytes. */
   public static final ByteSizeUnit KiB = new IECUnit(10), kibibyte = KiB;
+
+  /** IEC unit: MiB = mebibyte = 2<sup>20</sup> bytes. */
   public static final ByteSizeUnit MiB = new IECUnit(20), mebibyte = MiB;
+
+  /** IEC unit: GiB = gibibyte = 2<sup>30</sup> bytes. */
   public static final ByteSizeUnit GiB = new IECUnit(30), gibibyte = GiB;
+
+  /** IEC unit: TiB = tebibyte = 2<sup>40</sup> bytes. */
   public static final ByteSizeUnit TiB = new IECUnit(40), tebibyte = TiB;
+
+  /** IEC unit: PiB = pebibyte = 2<sup>50</sup> bytes. */
   public static final ByteSizeUnit PiB = new IECUnit(50), pebibyte = PiB;
+
+  /** IEC unit: EiB = exbibyte = 2<sup>60</sup> bytes. */
   public static final ByteSizeUnit EiB = new IECUnit(60), exbibyte = EiB;
+
+  /** IEC unit: ZiB = zebibyte = 2<sup>70</sup> bytes. */
   public static final ByteSizeUnit ZiB = new IECUnit(70), zebibyte = ZiB;
+
+  /** IEC unit: YiB = yobibyte = 2<sup>80</sup> bytes. */
   public static final ByteSizeUnit YiB = new IECUnit(80), yobibyte = YiB;
+
+  static class SingleByteUnit implements ByteSizeUnit {
+
+    public BigInteger numberOfBytes() {
+      return BigInteger.ONE;
+    }
+
+    public double numberOfBytes(ExactByteSize unit) {
+      double retval = 1;
+      if (!unit.numberOfBytes().equals(BigInteger.ONE)) {
+        retval /= unit.numberOfBytes().doubleValue();
+      }
+      return retval;
+    }
+
+    public String unitName() {
+      return "0";
+    }
+
+  }
 
   static class SIUnit extends ExactByteSizeImpl implements ByteSizeUnit {
 
@@ -85,12 +134,8 @@ public class ByteSizes {
       this.power = power;
     }
 
-    public int power() {
-      return power;
-    }
-
-    public ByteSizeUnitSystem unitSystem() {
-      return ByteSizeUnitSystem.SI;
+    public String unitName() {
+      return String.format("SI %d", power);
     }
 
   }
@@ -104,12 +149,8 @@ public class ByteSizes {
       this.power = power;
     }
 
-    public int power() {
-      return power;
-    }
-
-    public ByteSizeUnitSystem unitSystem() {
-      return ByteSizeUnitSystem.IEC;
+    public String unitName() {
+      return String.format("IEC %d", power);
     }
 
   }
