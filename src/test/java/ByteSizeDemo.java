@@ -13,7 +13,7 @@ public class ByteSizeDemo {
     // Parse a byte size string.
     ByteSize a = format.parse(".85 gigabytes");
 
-    // Convert 85 gigabytes to megabytes. Prints "850.0".
+    // Convert 0.85 gigabytes to megabytes. Prints "850.0".
     System.out.println(a.numberOfBytes(ByteSizeUnits.MB));
 
     // Create a ByteSize object representing 1500 bytes.
