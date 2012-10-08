@@ -1,15 +1,8 @@
-bytesize
-========
-
-A Java utility for dealing with data sizes.
-Supports internationalized formatting and parsing.
-
-Example usage
--------------
-
-```java
 import org.codeswarm.bytesize.*;
 
+/**
+ * Example code for documentation.
+ */
 public class ByteSizeDemo {
 
   public static void main(String[] args) throws java.text.ParseException {
@@ -45,4 +38,3 @@ public class ByteSizeDemo {
   }
 
 }
-```
