@@ -46,3 +46,17 @@ public class ByteSizeDemo {
 
 }
 ```
+
+Download
+--------
+
+Bytesize is available from Maven Central.
+The latest version is 1.0.
+
+```xml
+<dependency>
+  <groupId>org.codeswarm</groupId>
+  <artifactId>bytesize</artifactId>
+  <version>1.0</version>
+</dependency>
+```
