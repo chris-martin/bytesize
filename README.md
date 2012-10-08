@@ -38,7 +38,7 @@ public class ByteSizeDemo {
       .locale(java.util.Locale.forLanguageTag("sk"))
       .build();
 
-    // Format the first size using full words in terabytes.
+    // Format the first size using full words.
     // Prints "810,623 mebibajtov" (810.623 mebibytes).
     System.out.println(format2.format(a, ByteSizeFormat.WordLength.FULL));
 
