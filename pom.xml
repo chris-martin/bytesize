@@ -5,7 +5,7 @@
 
   <groupId>org.codeswarm</groupId>
   <artifactId>bytesize</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
 
   <name>bytesize</name>
   <description>A simple Java utility for formatting and parsing data sizes.</description>
