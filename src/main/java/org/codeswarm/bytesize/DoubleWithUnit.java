@@ -9,7 +9,7 @@ class DoubleWithUnit implements ByteSize {
   private final double n;
   private final ExactByteSize unit;
 
-  public DoubleWithUnit(double n, ExactByteSize unit) {
+  public DoubleWithUnit( double n, ExactByteSize unit ) {
     this.n = n;
     this.unit = unit;
   }
@@ -22,19 +22,19 @@ class DoubleWithUnit implements ByteSize {
     return retval;
   }
 
-  public int compareTo(ByteSize o) {
-    return Double.compare(numberOfBytes(unit), o.numberOfBytes(unit));
+  public int compareTo( ByteSize o ) {
+    return Double.compare( numberOfBytes( unit ), o.numberOfBytes( unit ) );
   }
 
   public String toString() {
-    double d = numberOfBytes(ByteSizeUnits.BYTE);
+    double d = numberOfBytes( ByteSizeUnits.BYTE );
     long l = round(d);
     String str = Long.toString(l);
-    BigInteger bi = new BigInteger(str);
+    BigInteger bi = new BigInteger( str );
     return bi.toString() + " bytes";
   }
 
-  public boolean equals(Object o) {
+  public boolean equals( Object o ) {
     if ( this == o ) return true;
     if ( o == null || getClass() != o.getClass() ) return false;
     DoubleWithUnit that = (DoubleWithUnit) o;

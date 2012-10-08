@@ -10,13 +10,13 @@ public interface ByteSizeFormat {
    * Renders a string representation of {@code byteSize}
    * in an automatically-determined unit.
    */
-  String format(ByteSize byteSize, WordLength wordLength);
+  String format( ByteSize byteSize, WordLength wordLength );
 
   /**
    * Renders a string representation of {@code byteSize}.
    */
-  String format(ByteSize byteSize, ByteSizeUnit unit, WordLength wordLength);
+  String format( ByteSize byteSize, ByteSizeUnit unit, WordLength wordLength );
 
-  ByteSize parse(String s) throws ParseException;
+  ByteSize parse( String s ) throws ParseException;
 
 }

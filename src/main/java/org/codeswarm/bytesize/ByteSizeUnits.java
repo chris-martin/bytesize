@@ -139,8 +139,8 @@ public final class ByteSizeUnits {
       Iterable<ByteSizeUnitSystem> unitSystems ) {
 
     Set<ByteSizeUnit> units = new HashSet<ByteSizeUnit>();
-    for (ByteSizeUnitSystem unitSystem : unitSystems) {
-      units.addAll(unitSystem.units());
+    for ( ByteSizeUnitSystem unitSystem : unitSystems ) {
+      units.addAll( unitSystem.units() );
     }
     return units;
   }
@@ -149,22 +149,23 @@ public final class ByteSizeUnits {
       ResourceBundle resourceBundle ) {
 
     Map<String, ByteSizeUnitSystem> unitSystems = new HashMap<String, ByteSizeUnitSystem>();
-    unitSystems.put("SI", SI);
-    unitSystems.put("IEC", IEC);
-    return getDefaultUnitSystem(resourceBundle, unitSystems);
+    unitSystems.put( "SI", SI );
+    unitSystems.put( "IEC", IEC );
+    return getDefaultUnitSystem( resourceBundle, unitSystems );
   }
   public static ByteSizeUnitSystem getDefaultUnitSystem(
       ResourceBundle resourceBundle,
       Map<String, ByteSizeUnitSystem> unitSystems ) {
 
-    for (String name : resourceBundle.getString("unit systems").trim().split(", ?")) {
+    String[] names = resourceBundle.getString( "unit systems" ).trim().split( ", ?" );
+    for ( String name : names ) {
       name = name.trim();
-      ByteSizeUnitSystem unitSystem = unitSystems.get(name);
-      if (unitSystem != null) {
+      ByteSizeUnitSystem unitSystem = unitSystems.get( name );
+      if ( unitSystem != null ) {
         return unitSystem;
       }
     }
-    throw new IllegalArgumentException("No unit systems found.");
+    throw new IllegalArgumentException( "No unit systems found." );
   }
 
 }

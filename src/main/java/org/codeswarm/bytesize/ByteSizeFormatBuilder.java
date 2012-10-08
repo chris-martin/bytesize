@@ -86,13 +86,13 @@ public class ByteSizeFormatBuilder {
   }
 
   private ByteSizeUnitSystem getUnitSystem() {
-    if (unitSystem != null) {
+    if ( unitSystem != null ) {
       return unitSystem;
     }
-    if (unitSystems != null) {
-      return ByteSizeUnits.getDefaultUnitSystem(getResourceBundle(), unitSystems);
+    if ( unitSystems != null ) {
+      return ByteSizeUnits.getDefaultUnitSystem( getResourceBundle(), unitSystems );
     }
-    return ByteSizeUnits.getDefaultUnitSystem(getResourceBundle());
+    return ByteSizeUnits.getDefaultUnitSystem( getResourceBundle() );
   }
 
   static class Impl extends AbstractByteSizeFormat {

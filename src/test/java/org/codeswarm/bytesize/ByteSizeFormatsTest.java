@@ -54,8 +54,8 @@ public class ByteSizeFormatsTest {
   public void testFormat4MB() {
     ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle( Locale.US );
     NumberFormat numberFormat = new DecimalFormat( "#,###.#" );
-    ByteSize size = byteSize(4, MB);
-    String str = ByteSizeFormats.format(size, kB, numberFormat, WordLength.FULL, resourceBundle);
+    ByteSize size = byteSize( 4, MB );
+    String str = ByteSizeFormats.format( size, kB, numberFormat, WordLength.FULL, resourceBundle );
     assertEquals( str, "4,000 kilobytes" );
   }
 
@@ -63,66 +63,67 @@ public class ByteSizeFormatsTest {
   public void testFormat1byte() {
     ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle( Locale.US );
     NumberFormat numberFormat = new DecimalFormat( "#" );
-    ByteSize size = byteSize(1.2, BYTE);
-    String str = ByteSizeFormats.format(size, BYTE, numberFormat, WordLength.FULL, resourceBundle);
+    ByteSize size = byteSize( 1.2, BYTE );
+    String str = ByteSizeFormats.format( size, BYTE, numberFormat, WordLength.FULL, resourceBundle );
     assertEquals( str, "1 byte" );
   }
 
   @Test
   public void testFormat1b() {
-    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle( Locale.forLanguageTag("eo") );
+    Locale locale = Locale.forLanguageTag( "eo" );
+    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle( locale );
     NumberFormat numberFormat = new DecimalFormat( "#" );
-    ByteSize size = byteSize(1.2, BYTE);
-    String str = ByteSizeFormats.format(size, BYTE, numberFormat, WordLength.ABBREVIATION, resourceBundle);
+    ByteSize size = byteSize( 1.2, BYTE );
+    String str = ByteSizeFormats.format( size, BYTE, numberFormat, WordLength.ABBREVIATION, resourceBundle );
     assertEquals( str, "1 b" );
   }
 
   @Test
   public void testParse1() throws ParseException {
-    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle(Locale.US);
-    NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle( Locale.US );
+    NumberFormat numberFormat = NumberFormat.getInstance( Locale.US );
     Collection<ByteSizeUnit> units = ByteSizeUnits.getAllDefaultUnits();
     String s = "1";
-    ByteSize byteSize = ByteSizeFormats.parse(s, numberFormat, units, resourceBundle);
-    assertEquals( byteSize, byteSize(1) );
+    ByteSize byteSize = ByteSizeFormats.parse( s, numberFormat, units, resourceBundle );
+    assertEquals( byteSize, byteSize( 1 ) );
   }
 
   @Test
   public void testParseAbbrDecimalWithSpaces() throws ParseException {
-    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle(Locale.US);
-    NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle( Locale.US );
+    NumberFormat numberFormat = NumberFormat.getInstance( Locale.US );
     Collection<ByteSizeUnit> units = ByteSizeUnits.getAllDefaultUnits();
     String s = " 3.6 GiB ";
-    ByteSize byteSize = ByteSizeFormats.parse(s, numberFormat, units, resourceBundle);
-    assertEquals( byteSize, byteSize(3.6, GiB) );
+    ByteSize byteSize = ByteSizeFormats.parse( s, numberFormat, units, resourceBundle );
+    assertEquals( byteSize, byteSize( 3.6, GiB ) );
   }
 
   @Test
   public void testParseWordWithoutSpace() throws ParseException {
-    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle(Locale.US);
-    NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+    ResourceBundle resourceBundle = ByteSizeFormats.getResourceBundle( Locale.US );
+    NumberFormat numberFormat = NumberFormat.getInstance( Locale.US );
     Collection<ByteSizeUnit> units = ByteSizeUnits.getAllDefaultUnits();
     String s = "4kilobyte";
-    ByteSize byteSize = ByteSizeFormats.parse(s, numberFormat, units, resourceBundle);
-    assertEquals( byteSize, byteSize(4, kB) );
+    ByteSize byteSize = ByteSizeFormats.parse( s, numberFormat, units, resourceBundle );
+    assertEquals( byteSize, byteSize( 4, kB ) );
   }
 
   @Test
   public void testDetermineReasonableUnitByte() {
-    ByteSizeUnit unit = ByteSizeFormats.determineReasonableUnit(byteSize(6), SI);
-    assertEquals(unit, ByteSizeUnits.BYTE);
+    ByteSizeUnit unit = ByteSizeFormats.determineReasonableUnit( byteSize( 6 ), SI );
+    assertEquals( unit, ByteSizeUnits.BYTE );
   }
 
   @Test
   public void testDetermineReasonableUnitMB() {
-    ByteSizeUnit unit = ByteSizeFormats.determineReasonableUnit(byteSize(6000000), SI);
-    assertEquals(unit, ByteSizeUnits.MB);
+    ByteSizeUnit unit = ByteSizeFormats.determineReasonableUnit( byteSize( 6000000 ), SI );
+    assertEquals( unit, ByteSizeUnits.MB );
   }
 
   @Test
   public void testDetermineReasonableUnitYiB() {
-    ByteSizeUnit unit = ByteSizeFormats.determineReasonableUnit(byteSize(pow(2, 120)), IEC);
-    assertEquals(unit, ByteSizeUnits.YiB);
+    ByteSizeUnit unit = ByteSizeFormats.determineReasonableUnit( byteSize( pow( 2, 120 ) ), IEC );
+    assertEquals( unit, ByteSizeUnits.YiB );
   }
 
 }

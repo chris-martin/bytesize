@@ -18,12 +18,12 @@ class ExactByteSizeImpl implements ExactByteSize {
     return n.doubleValue() / unit.numberOfBytes().doubleValue();
   }
 
-  public int compareTo(ByteSize o) {
-    if (o instanceof ExactByteSize) {
-      return n.compareTo(((ExactByteSize) o).numberOfBytes());
+  public int compareTo( ByteSize o ) {
+    if ( o instanceof ExactByteSize ) {
+      return n.compareTo( ((ExactByteSize) o).numberOfBytes() );
     } else {
       ByteSizeUnit unit = ByteSizeUnits.BYTE;
-      return Double.compare(numberOfBytes(unit), o.numberOfBytes(unit));
+      return Double.compare( numberOfBytes( unit ), o.numberOfBytes( unit ) );
     }
   }
 

@@ -20,35 +20,40 @@ public class ByteSizeFormatBuilderTest {
   @BeforeMethod
   public void setUp() {
     esperantoIEC = new ByteSizeFormatBuilder()
-      .locale(Locale.forLanguageTag("eo"))
-      .unitSystem(ByteSizeUnits.IEC)
-      .numberFormat(new DecimalFormat("#,###.##"))
+      .locale( Locale.forLanguageTag( "eo" ) )
+      .unitSystem( ByteSizeUnits.IEC )
+      .numberFormat( new DecimalFormat( "#,###.##" ) )
       .build();
   }
 
   @Test
   public void test1() {
-    assertEquals(esperantoIEC.format(byteSize(8, MiB), ABBREVIATION), "8 MiB");
+    String string = esperantoIEC.format( byteSize( 8, MiB ), ABBREVIATION );
+    assertEquals( string, "8 MiB" );
   }
 
   @Test
   public void test2() {
-    assertEquals(esperantoIEC.format(byteSize(8, MiB), FULL), "8 mebibajtoj");
+    String string = esperantoIEC.format( byteSize( 8, MiB ), FULL );
+    assertEquals( string, "8 mebibajtoj" );
   }
 
   @Test
   public void test3() {
-    assertEquals(esperantoIEC.format(byteSize(1024, MiB), FULL), "1 gibibajto");
+    String string = esperantoIEC.format( byteSize( 1024, MiB ), FULL );
+    assertEquals( string, "1 gibibajto" );
   }
 
   @Test
   public void test4() {
-    assertEquals(esperantoIEC.format(byteSize(1280, MiB), FULL), "1.25 gibibajtoj");
+    String string = esperantoIEC.format( byteSize( 1280, MiB ), FULL );
+    assertEquals( string, "1.25 gibibajtoj" );
   }
 
   @Test
   public void test5() throws ParseException {
-    assertTrue(esperantoIEC.parse("1.25 gibibajtoj").compareTo(byteSize(1280, MiB)) == 0);
+    ByteSize byteSize = esperantoIEC.parse( "1.25 gibibajtoj" );
+    assertTrue( byteSize.compareTo( byteSize( 1280, MiB ) ) == 0 );
   }
 
 }

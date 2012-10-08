@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.*;
 
-import static java.lang.Math.pow;
 import static org.codeswarm.bytesize.ByteSizes.byteSize;
 
 public final class ByteSizeFormats {
@@ -50,10 +49,10 @@ public final class ByteSizeFormats {
       wordType = WordType.ABBREVIATION;
     } else {
       long precision = 1;
-      for (int i = 0; i < numberFormat.getMaximumFractionDigits(); i++) {
+      for ( int i = 0; i < numberFormat.getMaximumFractionDigits(); i++ ) {
         precision *= 10;
       }
-      if (Math.round( precision * number) == precision) {
+      if ( Math.round( precision * number) == precision ) {
         wordType = WordType.SINGLE;
       } else {
         wordType = WordType.PLURAL;
@@ -71,13 +70,13 @@ public final class ByteSizeFormats {
     ByteSizeUnit unit, previousUnit;
     try {
       unit = units.next();
-    } catch (NoSuchElementException e) {
+    } catch ( NoSuchElementException e ) {
       throw new IllegalArgumentException("Unit system has no units");
     }
-    while (units.hasNext()) {
+    while ( units.hasNext() ) {
       previousUnit = unit;
       unit = units.next();
-      if (unit.compareTo(size) > 0) {
+      if ( unit.compareTo(size) > 0 ) {
         return previousUnit;
       }
     }
@@ -98,26 +97,26 @@ public final class ByteSizeFormats {
       final ByteSizeUnit unit;
       final String word;
 
-      UnitWord(ByteSizeUnit unit, String word) {
+      UnitWord( ByteSizeUnit unit, String word ) {
         this.unit = unit;
         this.word = word;
       }
 
-      public int compareTo(UnitWord o) {
+      public int compareTo( UnitWord o ) {
         // sort the unit string list by string length descending - this prevents
         // us from finding "bytes" when we should have found "kilobytes"
-        return o.word.compareTo(word);
+        return o.word.compareTo( word );
       }
     }
     List<UnitWord> unitWords = new ArrayList<UnitWord>();
-    for (ByteSizeUnit unit : units) {
-      for (WordType wordType : WordType.values()) {
-        String word = unitWord(unit, wordType, resourceBundle);
-        unitWords.add(new UnitWord(unit, word));
+    for ( ByteSizeUnit unit : units ) {
+      for ( WordType wordType : WordType.values() ) {
+        String word = unitWord( unit, wordType, resourceBundle );
+        unitWords.add( new UnitWord( unit, word ) );
       }
     }
 
-    Collections.sort(unitWords);
+    Collections.sort( unitWords );
 
     // default to byte if parsing does not find a unit
     ByteSizeUnit unit = ByteSizeUnits.BYTE;
@@ -126,44 +125,44 @@ public final class ByteSizeFormats {
     for ( UnitWord unitWord : unitWords ) {
       if ($.endsWith(unitWord.word)) {
         unit = unitWord.unit;
-        $ = $.substring(0, $.length() - unitWord.word.length()).trim();
+        $ = $.substring( 0, $.length() - unitWord.word.length() ).trim();
         break;
       }
     }
 
     // enable BigDecimal parsing
-    if (numberFormat instanceof DecimalFormat) {
+    if ( numberFormat instanceof DecimalFormat ) {
       numberFormat = (NumberFormat) numberFormat.clone();
       DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
-      decimalFormat.setParseBigDecimal(true);
+      decimalFormat.setParseBigDecimal( true );
     }
 
     // parse the number, throwing ParseException upon failure
     Number n;
     {
-      ParsePosition parsePosition = new ParsePosition(0);
-      n = numberFormat.parse($, parsePosition);
+      ParsePosition parsePosition = new ParsePosition( 0 );
+      n = numberFormat.parse( $, parsePosition );
       int parsePositionIndex = parsePosition.getIndex();
-      if (parsePositionIndex != $.length()) {
-        throw new ParseException(s, parsePositionIndex);
+      if ( parsePositionIndex != $.length() ) {
+        throw new ParseException( s, parsePositionIndex );
       }
     }
 
     // constuct a ByteSize, preferring ExactByteSize if n is an integer
-    if (n instanceof BigDecimal) {
+    if ( n instanceof BigDecimal ) {
       BigDecimal bigDecimal = (BigDecimal) n;
       try {
         // coerce decimal to integer
         BigInteger bigInteger = bigDecimal.toBigIntegerExact();
-        return byteSize(bigInteger, unit);
-      } catch (ArithmeticException ignored) {
+        return byteSize( bigInteger, unit );
+      } catch ( ArithmeticException ignored ) {
         // exception indicates that bigDecimal has a fractional part
       }
-      return byteSize(bigDecimal.doubleValue(), unit);
-    } else if (n instanceof Long) {
-      return byteSize((Long) n, unit);
+      return byteSize( bigDecimal.doubleValue(), unit );
+    } else if ( n instanceof Long ) {
+      return byteSize( (Long) n, unit );
     } else {
-      return byteSize(n.doubleValue(), unit);
+      return byteSize( n.doubleValue(), unit );
     }
   }
 

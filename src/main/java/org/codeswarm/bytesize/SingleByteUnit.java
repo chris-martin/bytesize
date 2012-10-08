@@ -20,11 +20,11 @@ class SingleByteUnit implements ByteSizeUnit {
     return "0";
   }
 
-  public int compareTo(ByteSize o) {
-    if (o instanceof ExactByteSize) {
-      return BigInteger.ONE.compareTo(((ExactByteSize) o).numberOfBytes());
+  public int compareTo( ByteSize o ) {
+    if ( o instanceof ExactByteSize ) {
+      return BigInteger.ONE.compareTo( ((ExactByteSize) o).numberOfBytes() );
     } else {
-      return Double.compare(1, o.numberOfBytes(ByteSizeUnits.BYTE));
+      return Double.compare( 1, o.numberOfBytes( ByteSizeUnits.BYTE ) );
     }
   }
 

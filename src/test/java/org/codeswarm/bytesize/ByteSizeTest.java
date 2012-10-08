@@ -15,7 +15,7 @@ public class ByteSizeTest {
   @Test
   public void testUnitConversion() {
     ExactByteSize bs = byteSize( 67, MB );
-    double numberOfBytes = bs.numberOfBytes(kB);
+    double numberOfBytes = bs.numberOfBytes( kB );
     assertEquals( round( numberOfBytes ), 67000 );
   }
 
@@ -24,7 +24,7 @@ public class ByteSizeTest {
    */
   @Test
   public void testExactByteSizeWithUnit() {
-    ExactByteSize bs = byteSize(31, GiB);
+    ExactByteSize bs = byteSize( 31, GiB );
     long numberOfBytes = bs.numberOfBytes().longValue();
     assertEquals( numberOfBytes, 31L * 1024 * 1024 * 1024 );
   }
@@ -47,9 +47,9 @@ public class ByteSizeTest {
    */
   @Test
   public void testLargeNumbers() {
-    ByteSize bs = byteSize(pow(2, 77), yobibyte);
-    double numberOfBytes = bs.numberOfBytes(mebibyte);
-    double orderOfMagnitude = log(numberOfBytes) / log(2);
+    ByteSize bs = byteSize( pow( 2, 77 ), yobibyte );
+    double numberOfBytes = bs.numberOfBytes( mebibyte );
+    double orderOfMagnitude = log( numberOfBytes ) / log( 2 );
     assertEquals( round( orderOfMagnitude ), 80 + 77 - 20 );
   }
 
