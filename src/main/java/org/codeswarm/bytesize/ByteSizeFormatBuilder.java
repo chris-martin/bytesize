@@ -1,7 +1,6 @@
 package org.codeswarm.bytesize;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
@@ -96,24 +95,27 @@ public class ByteSizeFormatBuilder {
     return ByteSizeUnits.getDefaultUnitSystem(getResourceBundle());
   }
 
-  static class Impl implements ByteSizeFormat {
+  static class Impl extends AbstractByteSizeFormat {
 
-    NumberFormat numberFormat;
-    ResourceBundle resourceBundle;
-    Collection<ByteSizeUnit> units;
-    ByteSizeUnitSystem unitSystem;
+    private NumberFormat numberFormat;
+    private ResourceBundle resourceBundle;
+    private Collection<ByteSizeUnit> units;
+    private ByteSizeUnitSystem unitSystem;
 
-    public String format( ByteSize byteSize, WordLength wordLength ) {
-      ByteSizeUnit unit = ByteSizeFormats.determineReasonableUnit( byteSize, unitSystem );
-      return format( byteSize, unit, wordLength );
+    protected NumberFormat getNumberFormat() {
+      return numberFormat;
     }
 
-    public String format( ByteSize byteSize, ByteSizeUnit unit, WordLength wordLength ) {
-      return ByteSizeFormats.format( byteSize, unit, numberFormat, wordLength, resourceBundle );
+    protected ResourceBundle getResourceBundle() {
+      return resourceBundle;
     }
 
-    public ByteSize parse( String s ) throws ParseException {
-      return ByteSizeFormats.parse( s, numberFormat, units, resourceBundle );
+    protected Collection<ByteSizeUnit> getUnits() {
+      return units;
+    }
+
+    protected ByteSizeUnitSystem getUnitSystem() {
+      return unitSystem;
     }
 
   }

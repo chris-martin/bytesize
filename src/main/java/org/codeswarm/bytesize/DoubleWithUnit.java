@@ -2,6 +2,8 @@ package org.codeswarm.bytesize;
 
 import java.math.BigInteger;
 
+import static java.lang.Math.round;
+
 class DoubleWithUnit implements ByteSize {
 
   private final double n;
@@ -25,8 +27,11 @@ class DoubleWithUnit implements ByteSize {
   }
 
   public String toString() {
-    BigInteger numberOfBytes = new BigInteger( Double.toString( numberOfBytes( ByteSizeUnits.BYTE ) ) );
-    return numberOfBytes.toString() + " bytes";
+    double d = numberOfBytes(ByteSizeUnits.BYTE);
+    long l = round(d);
+    String str = Long.toString(l);
+    BigInteger bi = new BigInteger(str);
+    return bi.toString() + " bytes";
   }
 
   public boolean equals(Object o) {

@@ -15,7 +15,7 @@ class ExactByteSizeImpl implements ExactByteSize {
   }
 
   public double numberOfBytes( ExactByteSize unit ) {
-    return n.divide( unit.numberOfBytes() ).doubleValue();
+    return n.doubleValue() / unit.numberOfBytes().doubleValue();
   }
 
   public int compareTo(ByteSize o) {

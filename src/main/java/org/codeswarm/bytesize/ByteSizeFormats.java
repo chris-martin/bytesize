@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.*;
 
+import static java.lang.Math.pow;
 import static org.codeswarm.bytesize.ByteSizes.byteSize;
 
 public final class ByteSizeFormats {
@@ -44,18 +45,22 @@ public final class ByteSizeFormats {
       ResourceBundle resourceBundle ) {
 
     WordType wordType;
+    double number = byteSize.numberOfBytes(unit);
     if ( wordLength == WordLength.ABBREVIATION ) {
       wordType = WordType.ABBREVIATION;
     } else {
-      if ( numberFormat.getMaximumFractionDigits() == 0
-           && Math.round( byteSize.numberOfBytes( unit ) ) == 1 ) {
+      long precision = 1;
+      for (int i = 0; i < numberFormat.getMaximumFractionDigits(); i++) {
+        precision *= 10;
+      }
+      if (Math.round( precision * number) == precision) {
         wordType = WordType.SINGLE;
       } else {
         wordType = WordType.PLURAL;
       }
     }
-    return numberFormat.format( byteSize.numberOfBytes( unit ) )
-      + " " + unitWord( unit, wordType, resourceBundle );
+    return numberFormat.format(number) + " "
+      + unitWord( unit, wordType, resourceBundle );
   }
 
   public static ByteSizeUnit determineReasonableUnit(
