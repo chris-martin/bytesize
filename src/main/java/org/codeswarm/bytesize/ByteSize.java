@@ -1,7 +1,7 @@
 package org.codeswarm.bytesize;
 
-public interface ByteSize {
+public interface ByteSize extends Comparable<ByteSize> {
 
-  double numberOfBytes(ExactByteSize unit);
+  double numberOfBytes( ExactByteSize unit );
 
 }
