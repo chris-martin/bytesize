@@ -60,3 +60,14 @@ The latest version is 1.0.
   <version>1.0</version>
 </dependency>
 ```
+
+Language support
+----------------
+
+* English
+* Slovak
+* Esperanto
+
+If your language is missing from this list,
+please leave us a note in the issue tracker.
+
